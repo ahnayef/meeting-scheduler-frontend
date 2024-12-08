@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const initialForm = {
-  role: "",
+  role: "Guest",
   name: "",
   email: "",
   password: "",
@@ -76,6 +76,7 @@ function Signup() {
             <Select
               id="role"
               required
+              value={formState.role}
               onChange={(e) => {
                 handleChange(e);
               }}
