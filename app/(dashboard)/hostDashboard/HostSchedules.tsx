@@ -3,6 +3,7 @@
 import ScheduleBox from "@/app/(components)/ScheduleBox";
 import { Button, Modal } from "flowbite-react";
 import React, { useState } from "react";
+import { FaPlus } from "react-icons/fa6";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 
 function HostSchedules({ schedules }: any) {

@@ -1,5 +1,7 @@
 import React from "react";
 import HostSchedules from "./HostSchedules";
+import { FaPlus } from "react-icons/fa6";
+import Link from "next/link";
 
 export default function Host({ params }: { params: { id: string } }) {
   const hostDetails = {
@@ -125,6 +127,12 @@ export default function Host({ params }: { params: { id: string } }) {
     <>
       <div className="flex h-full w-full flex-col items-center justify-center gap-10 p-10">
         <h2 className="text-2xl font-semibold">Schedules</h2>
+        <Link href="hostDashboard/addSchedule"  className="flex justify-center items-center shadow border p-2 cursor-pointer gap-1 flex-row">
+        <FaPlus className="text-2xl"/> 
+        <p>
+        Add Schedule
+        </p>
+        </Link>
         <HostSchedules schedules={schedules} />
         <h2 className="text-2xl font-semibold">Booked Schedules</h2>
         <HostSchedules schedules={bookedSchedules} />
