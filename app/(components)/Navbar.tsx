@@ -1,15 +1,21 @@
 "use client";
 
-
 import { Button, Navbar } from "flowbite-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { HiOutlineCalendarDateRange } from "react-icons/hi2";
 
 export function Nav() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const router = useRouter();
+  const router = useRouter();
 
+  useEffect(() => {
+    setIsLoggedIn(true);
+    // if (localStorage.getItem("token")) {
+    // }
+  }, []);
 
   return (
     <Navbar fluid rounded>
@@ -19,13 +25,24 @@ export function Nav() {
           MeetFlow
         </span>
       </Navbar.Brand>
+
       <div className="flex items-center justify-center gap-10 md:order-2">
-        <Link href="login">Login</Link>
-        <Button className="p-0" onClick={() => router.push("signup")}>
-          Signup
-        </Button>
+        {isLoggedIn ? (
+          <>
+            <Link href="login">Login</Link>
+            <Button className="p-0" onClick={() => router.push("signup")}>
+              Signup
+            </Button>
+          </>
+        ) : (
+          <Button className="p-0" onClick={() => router.push("dashboard")}>
+            Dashboard
+          </Button>
+        )}
+
         <Navbar.Toggle />
       </div>
+
       <Navbar.Collapse>
         <Navbar.Link href="/" active>
           Home
