@@ -1,29 +1,36 @@
 "use client";
 
+
+import { Button, Navbar } from "flowbite-react";
 import Link from "next/link";
-import { Navbar } from "flowbite-react";
+import { useRouter } from "next/navigation";
 import { HiOutlineCalendarDateRange } from "react-icons/hi2";
 
 export function Nav() {
+
+    const router = useRouter();
+
+
   return (
     <Navbar fluid rounded>
-      <Navbar.Brand as={Link} href="https://flowbite-react.com" className="gap-2">
-      <HiOutlineCalendarDateRange />
+      <Navbar.Brand href="https://flowbite-react.com">
+        <HiOutlineCalendarDateRange className="text-primary-500 dark:text-primary-400 mr-2 h-8 w-8 self-center" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          Meeting Scheduler
+          MeetFlow
         </span>
       </Navbar.Brand>
-      <Navbar.Toggle />
+      <div className="flex items-center justify-center gap-10 md:order-2">
+        <Link href="login">Login</Link>
+        <Button className="p-0" onClick={() => router.push("signup")}>
+          Signup
+        </Button>
+        <Navbar.Toggle />
+      </div>
       <Navbar.Collapse>
         <Navbar.Link href="#" active>
           Home
         </Navbar.Link>
-        <Navbar.Link as={Link} href="#">
-          About
-        </Navbar.Link>
-        <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#">Pricing</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
+        <Navbar.Link href="#">About</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
