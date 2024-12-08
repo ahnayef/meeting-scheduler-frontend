@@ -19,7 +19,7 @@ export function Nav() {
 
   return (
     <Navbar fluid rounded>
-      <Navbar.Brand href="https://flowbite-react.com">
+      <Navbar.Brand href="/">
         <HiOutlineCalendarDateRange className="text-primary-500 dark:text-primary-400 mr-2 h-8 w-8 self-center" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           MeetFlow
@@ -35,9 +35,14 @@ export function Nav() {
             </Button>
           </>
         ) : (
-          <Button className="p-0" onClick={() => router.push("guestDashboard")}>
+          <>
+          <Button className="p-0" onClick={() => router.push("/guestDashboard")}>
             Dashboard
           </Button>
+          <Button color="red"  onClick={() => router.push("/guestDashboard")}>
+            Logout
+          </Button>
+          </>
         )}
 
         <Navbar.Toggle />
