@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
-const isTokenExpired = async () => {
+const isTokenExpired = () => {
     const token = localStorage.getItem("token");
     if (token) {
         const decoded = jwtDecode(token);
