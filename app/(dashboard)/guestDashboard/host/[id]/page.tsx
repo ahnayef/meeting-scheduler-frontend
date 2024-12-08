@@ -16,84 +16,108 @@ export default function Host({ params }: { params: { id: string } }) {
       date: "2021-07-01",
       start_tm: "09:00",
       end_tm: "10:00",
-      is_booked: false,
+      status: "Available",
     },
     {
       slot_id: 2,
       date: "2021-07-01",
       start_tm: "10:00",
       end_tm: "11:00",
-      is_booked: false,
+      status: "Available",
     },
     {
       slot_id: 3,
       date: "2021-07-01",
       start_tm: "11:00",
       end_tm: "12:00",
-      is_booked: false,
+      status: "Available",
     },
     {
       slot_id: 4,
       date: "2021-07-01",
       start_tm: "13:00",
       end_tm: "14:00",
-      is_booked: false,
+      status: "Available",
     },
     {
       slot_id: 5,
       date: "2021-07-01",
       start_tm: "14:00",
       end_tm: "15:00",
-      is_booked: false,
+      status: "Available",
     },
     {
       slot_id: 6,
       date: "2021-07-01",
       start_tm: "15:00",
       end_tm: "16:00",
-      is_booked: false,
+      status: "Available",
     },
     {
       slot_id: 7,
       date: "2021-07-01",
       start_tm: "16:00",
       end_tm: "17:00",
-      is_booked: false,
+      status: "Available",
     },
     {
       slot_id: 8,
       date: "2021-07-01",
       start_tm: "17:00",
       end_tm: "18:00",
-      is_booked: false,
+      status: "Available",
     },
     {
       slot_id: 9,
       date: "2021-07-01",
       start_tm: "18:00",
       end_tm: "19:00",
-      is_booked: false,
+      status: "Available",
     },
     {
       slot_id: 10,
       date: "2021-07-01",
       start_tm: "19:00",
       end_tm: "20:00",
-      is_booked: false,
+      status: "Available",
     },
     {
       slot_id: 11,
       date: "2021-07-01",
       start_tm: "20:00",
       end_tm: "21:00",
-      is_booked: false,
+      status: "Available",
     },
     {
       slot_id: 12,
       date: "2021-07-01",
       start_tm: "21:00",
       end_tm: "22:00",
-      is_booked: false,
+      status: "Available",
+    },
+  ];
+
+  const pendingSchedules = [
+    {
+      slot_id: 13,
+      date: "2021-07-01",
+      start_tm: "09:00",
+      end_tm: "10:00",
+      status: "Pending",
+    },
+    {
+      slot_id: 14,
+      date: "2021-07-01",
+      start_tm: "10:00",
+      end_tm: "11:00",
+      status: "Pending",
+    },
+    {
+      slot_id: 15,
+      date: "2021-07-01",
+      start_tm: "11:00",
+      end_tm: "12:00",
+      status: "Pending",
     },
   ];
 
@@ -118,9 +142,11 @@ export default function Host({ params }: { params: { id: string } }) {
             {hostDetails.email}
           </span>
         </div>
-
         <h2 className="text-2xl font-semibold">Schedules</h2>
         <ScheduleList schedules={schedules} />
+        <h2 className="text-2xl font-semibold">Pending Schedules</h2>
+        <ScheduleList schedules={pendingSchedules} />
+
       </div>
     </>
   );
