@@ -1,5 +1,6 @@
 "use client";
 
+import { isLoggedIn } from "@/utils/isLoggedIn";
 import { Button, Navbar } from "flowbite-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -7,14 +8,21 @@ import { useEffect, useState } from "react";
 import { HiOutlineCalendarDateRange } from "react-icons/hi2";
 
 export function Nav() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const router = useRouter();
 
+  const logout = () => {
+    console.log("logging out");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    router.push("/");
+  };
+
   useEffect(() => {
-    // setIsLoggedIn(true);
-    // if (localStorage.getItem("token")) {
-    // }
+    if (isLoggedIn()) {
+      setLoggedIn(true);
+    }
   }, []);
 
   return (
@@ -27,7 +35,7 @@ export function Nav() {
       </Navbar.Brand>
 
       <div className="flex items-center justify-center gap-10 md:order-2">
-        {!isLoggedIn ? (
+        {!loggedIn ? (
           <>
             <Link href="login">Login</Link>
             <Button className="p-0" onClick={() => router.push("signup")}>
@@ -36,12 +44,15 @@ export function Nav() {
           </>
         ) : (
           <>
-          <Button className="p-0" onClick={() => router.push("/hostDashboard")}>
-            Dashboard
-          </Button>
-          <Button color="red"  onClick={() => router.push("/guestDashboard")}>
-            Logout
-          </Button>
+            <Button
+              className="p-0"
+              onClick={() => router.push("/hostDashboard")}
+            >
+              Dashboard
+            </Button>
+            <Button color="red" onClick={() => logout()}>
+              Logout
+            </Button>
           </>
         )}
 
