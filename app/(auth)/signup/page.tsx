@@ -36,7 +36,8 @@ function Signup() {
     <div className="flex h-screen w-full items-center justify-center">
       <div className="px-2flex flex-col items-center justify-center lg:w-2/5">
         <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
-        <h1 className="w-full text-center text-3xl font-bold">Sign up</h1>
+        <h1 className="w-full text-center text-2xl lg:text-4xl font-bold">Sign up</h1>
+
 
           <div className="w-full">
             <div className="mb-2 block">
