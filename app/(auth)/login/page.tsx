@@ -3,8 +3,10 @@
 import { request } from "@/utils/request";
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialForm = {
   email: "",
@@ -14,6 +16,8 @@ const initialForm = {
 function Login() {
   const [formState, setFormState] = useState(initialForm);
 
+  const router = useRouter();
+
   const handleChange = (e: any) => {
     setFormState({
       ...formState,
@@ -21,16 +25,23 @@ function Login() {
     });
   };
 
-  const login = async ({ role, identification, password }: any) => {
+  const login = async ({ email, password }: any) => {
     try {
       const res = await request.post("/users/login", {
-        role,
-        identification,
+        email,
         password,
       });
       const { user, token } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      toast.success("Login successful");
+
+      if (user.role === "Guest") {
+        router.push("/guestDashboard");
+      } else if (user.role === "Host") {
+        router.push("/hostDashboard");
+      }
+      
     } catch (error: any) {
       toast.error(error.response?.data || error.message);
     }
@@ -38,6 +49,7 @@ function Login() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    console.log(formState);
     login(formState);
   };
 

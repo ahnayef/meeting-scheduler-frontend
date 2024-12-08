@@ -41,7 +41,12 @@ function Signup() {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success("Registration successful");
-      router.push("/guestDashboard");
+
+      if (user.role === "Guest") {
+        router.push("/guestDashboard");
+      } else if (user.role === "Host") {
+        router.push("/hostDashboard");
+      }
     } catch (error: any) {
       toast.error(error.response?.data || error.message);
     }
