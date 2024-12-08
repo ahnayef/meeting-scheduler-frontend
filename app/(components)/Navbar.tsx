@@ -35,7 +35,7 @@ export function Nav() {
             </Button>
           </>
         ) : (
-          <Button className="p-0" onClick={() => router.push("dashboard")}>
+          <Button className="p-0" onClick={() => router.push("guestDashboard")}>
             Dashboard
           </Button>
         )}

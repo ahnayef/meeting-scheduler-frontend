@@ -1,6 +1,6 @@
-import { DSidebar } from "../(components)/DashboardSidebar";
+import { DSidebar } from "../../(components)/DashboardSidebar";
 
-export default function DashboardLayout({
+export default function hostDashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
