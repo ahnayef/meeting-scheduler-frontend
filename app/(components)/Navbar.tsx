@@ -7,12 +7,12 @@ import { useEffect, useState } from "react";
 import { HiOutlineCalendarDateRange } from "react-icons/hi2";
 
 export function Nav() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const router = useRouter();
 
   useEffect(() => {
-    setIsLoggedIn(true);
+    // setIsLoggedIn(true);
     // if (localStorage.getItem("token")) {
     // }
   }, []);
@@ -27,7 +27,7 @@ export function Nav() {
       </Navbar.Brand>
 
       <div className="flex items-center justify-center gap-10 md:order-2">
-        {isLoggedIn ? (
+        {!isLoggedIn ? (
           <>
             <Link href="login">Login</Link>
             <Button className="p-0" onClick={() => router.push("signup")}>
