@@ -1,9 +1,12 @@
 "use client";
 
 import ScheduleBox from "@/app/(components)/ScheduleBox";
+import { request } from "@/utils/request";
 import { Button, Modal } from "flowbite-react";
 import React, { useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ScheduleList({ schedules }: any) {
   const [modalData, setModalData] = useState<{ id: number | null }>({
@@ -11,9 +14,21 @@ function ScheduleList({ schedules }: any) {
   });
 
   const handleBook = (slot_id: number) => {
-    console.log(slot_id);
-    setModalData({ id: null });
+    const res = request.post("/booking/create", { slot_id, user_id: id });
+    res.then((res) => {
+        toast.success("Booking successful");
+    }
+    ).catch((err) => {
+        toast.error(err.response.data.message || err.response.data || "Booking failed");
+    }
+    ).finally(() => {
+      setModalData({ id: null })
+      window.location.reload();
+    });
   };
+
+  const user = localStorage.getItem("user");
+  const id = user ? JSON.parse(user)["user_id"] : null;
 
   return (
     <>
