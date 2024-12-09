@@ -21,6 +21,7 @@ function ScheduleList({ schedules }: any) {
         {schedules.map((schedules: any) => (
           <ScheduleBox
             key={schedules.slot_id}
+            user_id={schedules.user_id}
             slot_id={schedules.slot_id}
             date={schedules.date}
             start_tm={schedules.start_tm}

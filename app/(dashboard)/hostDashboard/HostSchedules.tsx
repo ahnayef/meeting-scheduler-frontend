@@ -23,6 +23,7 @@ function HostSchedules({ schedules }: any) {
           <ScheduleBox
             key={schedules.slot_id}
             slot_id={schedules.slot_id}
+            user_id={schedules.user_id}
             date={schedules.date}
             start_tm={schedules.start_tm}
             end_tm={schedules.end_tm}
