@@ -126,7 +126,7 @@ export default function Host({ params }: { params: { id: string } }) {
   return (
     <>
       <div className="flex h-full w-full flex-col items-center justify-center gap-10 p-10">
-        <h2 className="text-2xl font-semibold">Schedules</h2>
+        <h2 className="text-2xl font-semibold">My Schedules</h2>
         <Link href="hostDashboard/addSchedule"  className="flex justify-center items-center shadow border p-2 cursor-pointer gap-1 flex-row">
         <FaPlus className="text-2xl"/> 
         <p>
