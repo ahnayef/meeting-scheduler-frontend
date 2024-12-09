@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const initialForm = {
+  slot_id: "",
   date: "",
   start_tm: "",
   end_tm: "",
@@ -26,6 +27,7 @@ function addSchedule({ params }: { params: Promise<{ id: string }> }) {
       const slot = res.data;
       console.log(slot);
       setFormState({
+        slot_id: slot.slot_id,
         start_tm: slot.start_tm,
         end_tm: slot.end_tm,
         date: new Date(slot.date).toISOString().slice(0, 10),
@@ -65,7 +67,7 @@ function addSchedule({ params }: { params: Promise<{ id: string }> }) {
       return;
     }
 
-    const res = request.post("/slots/create", formState);
+    const res = request.put("/slots/update", formState);
 
     res
       .then((res) => {
@@ -82,7 +84,7 @@ function addSchedule({ params }: { params: Promise<{ id: string }> }) {
     <main className="flex w-full flex-col items-center justify-center">
       <form className="flex flex-col gap-4 p-10" onSubmit={handleSubmit}>
         <h1 className="w-full text-center text-2xl font-bold lg:text-4xl">
-          Create Schedule
+          Update Schedule
         </h1>
 
         <div className="w-full">
@@ -109,7 +111,7 @@ function addSchedule({ params }: { params: Promise<{ id: string }> }) {
           <TextInput
             id="end_tm"
             type="time"
-            value={formState.start_tm || ""}
+            value={formState.end_tm || ""}
             required
             shadow
             onChange={handleChange}
