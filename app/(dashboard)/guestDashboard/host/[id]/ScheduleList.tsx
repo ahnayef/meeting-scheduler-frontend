@@ -8,7 +8,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function ScheduleList({ schedules }: any) {
+function ScheduleList({ schedules, getSchedules }: any) {
   const [modalData, setModalData] = useState<{ id: number | null }>({
     id: null,
   });
@@ -23,7 +23,7 @@ function ScheduleList({ schedules }: any) {
     }
     ).finally(() => {
       setModalData({ id: null })
-      window.location.reload();
+      getSchedules()
     });
   };
 
@@ -43,6 +43,7 @@ function ScheduleList({ schedules }: any) {
             end_tm={schedules.end_tm}
             is_booked={schedules.is_booked}
             setModalData={setModalData}
+            bookedBy={schedules.bookedBy}
           />
         ))}
       </div>

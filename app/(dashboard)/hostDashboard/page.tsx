@@ -8,38 +8,22 @@ import { request } from "@/utils/request";
 
 export default function Host({ params }: { params: Promise<{ id: string }> }) {
   const [schedules, setSchedules] = React.useState([]);
+  const [bookedSchedules, setBookedSchedules] = React.useState([]);
 
-  const { user_id } = JSON.parse(localStorage.getItem("user") || "{}")
-  useEffect(() => {
+  const { user_id } = JSON.parse(localStorage.getItem("user") || "{}");
+
+  const getSchedule = () => {
     const res = request.get("/slots/getall?user_id=" + user_id);
     res.then((res) => {
-      setSchedules(res.data);
+      const { slots, bookedSlots } = res.data;
+      setSchedules(slots);
+      setBookedSchedules(bookedSlots);
     });
-  }, []);
+  };
 
-  const bookedSchedules = [
-    {
-      slot_id: 13,
-      date: "2021-07-01",
-      start_tm: "09:00",
-      end_tm: "10:00",
-      status: "Pending",
-    },
-    {
-      slot_id: 14,
-      date: "2021-07-01",
-      start_tm: "10:00",
-      end_tm: "11:00",
-      status: "Pending",
-    },
-    {
-      slot_id: 15,
-      date: "2021-07-01",
-      start_tm: "11:00",
-      end_tm: "12:00",
-      status: "Pending",
-    },
-  ];
+  useEffect(() => {
+    getSchedule();
+  }, []);
 
   return (
     <>
@@ -52,9 +36,9 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
           <FaPlus className="text-2xl" />
           <p>Add Schedule</p>
         </Link>
-        <HostSchedules schedules={schedules} />
-        {/* <h2 className="text-2xl font-semibold">Booked Schedules</h2>
-        <HostSchedules schedules={bookedSchedules} /> */}
+        <HostSchedules getSchedule = {getSchedule} schedules={schedules} />
+        <h2 className="text-2xl font-semibold">Booked Schedules</h2>
+        <HostSchedules getSchedule= {getSchedule} schedules={bookedSchedules} />
       </div>
     </>
   );

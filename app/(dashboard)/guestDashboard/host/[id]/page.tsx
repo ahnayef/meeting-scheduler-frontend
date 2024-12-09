@@ -124,14 +124,21 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
   // ];
 
   const [schedules, setSchedules] = React.useState([]);
+  const [bookedSchedules, setBookedSchedules] = React.useState([]);
 
   const { id } = use(params);
 
-  useEffect(() => {
+  const getSchedules = () => {
     const res = request.get("/slots/getall?user_id=" + id);
     res.then((res) => {
-      setSchedules(res.data);
+      const { slots, bookedSlots } = res.data;
+      setSchedules(slots);
+      setBookedSchedules(bookedSlots);
     });
+  };
+
+  useEffect(() => {
+    getSchedules();
   }, []);
 
   return (
@@ -156,9 +163,9 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
           </span>
         </div>
         <h2 className="text-2xl font-semibold">Schedules</h2>
-        <ScheduleList schedules={schedules} />
-        {/* <h2 className="text-2xl font-semibold">Pending Schedules</h2>
-        <ScheduleList schedules={pendingSchedules} /> */}
+        <ScheduleList getSchedules={getSchedules} schedules={schedules} />
+        <h2 className="text-2xl font-semibold">Booked Schedules</h2>
+        <ScheduleList getSchedules={getSchedules} schedules={bookedSchedules} />
       </div>
     </>
   );
