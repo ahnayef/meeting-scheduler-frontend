@@ -10,7 +10,7 @@ function Footer() {
         <div className="w-full md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <a
-              href="https://flowbite-react.com"
+              href="/"
               className="flex flex-row gap-1"
             >
               <HiOutlineCalendarDateRange className="text-primary-500 dark:text-primary-400 mr-2 h-8 w-8 self-center" />
@@ -66,7 +66,7 @@ function Footer() {
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © {new Date().getFullYear()}{" "}
-            <a href="https://flowbite.com/" className="hover:underline">
+            <a href="/" className="hover:underline">
               MeetFlow™
             </a>
             . All Rights Reserved.

@@ -1,11 +1,15 @@
 "use client";
 
-import { Button, Card, Label, TextInput, Toast } from "flowbite-react";
+import { request } from "@/utils/request";
+import { Button, Card, Label, Select, TextInput, Toast } from "flowbite-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialForm = {
+  role: "Guest",
   name: "",
   email: "",
   password: "",
@@ -15,11 +19,36 @@ const initialForm = {
 function Signup() {
   const [formState, setFormState] = useState(initialForm);
 
+  const router = useRouter();
+
   const handleChange = (e: any) => {
     setFormState({
       ...formState,
       [e.target.id]: e.target.value,
     });
+  };
+
+  const register = async ({ role, name, email, password }: any) => {
+    try {
+      const res = await request.post("/users/register", {
+        role,
+        name,
+        email: email || null,
+        password,
+      });
+      const { user, token } = res.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      toast.success("Registration successful");
+
+      if (user.role === "Guest") {
+        router.push("/guestDashboard");
+      } else if (user.role === "Host") {
+        router.push("/hostDashboard");
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data || error.message);
+    }
   };
 
   const handleSubmit = (e: any) => {
@@ -28,16 +57,33 @@ function Signup() {
       toast.error("Passwords do not match");
       return;
     }
-
-    console.log(formState);
+    register(formState);
   };
 
   return (
     <div className="flex h-screen w-full items-center justify-center">
       <div className="px-2flex flex-col items-center justify-center lg:w-2/5">
         <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
-        <h1 className="w-full text-center text-3xl font-bold">Sign up</h1>
+          <h1 className="w-full text-center text-2xl font-bold lg:text-4xl">
+            Sign up
+          </h1>
 
+          <div className="w-full">
+            <div className="mb-2 block">
+              <Label htmlFor="countries" value="Select your country" />
+            </div>
+            <Select
+              id="role"
+              required
+              value={formState.role}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+            >
+              <option>Host</option>
+              <option>Guest</option>
+            </Select>
+          </div>
           <div className="w-full">
             <div className="mb-2 block">
               <Label htmlFor="name" value="Name" />
@@ -92,9 +138,11 @@ function Signup() {
           </div>
 
           <Button type="submit">Sign Up</Button>
-          <div className="w-full text-center items-center justify-center flex flex-row gap-1">
+          <div className="flex w-full flex-row items-center justify-center gap-1 text-center">
             <p>Already have an account? </p>
-            <Link href="login" className="text-primary">Login</Link>
+            <Link href="login" className="text-primary">
+              Login
+            </Link>
           </div>
         </form>
       </div>

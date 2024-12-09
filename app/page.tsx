@@ -1,9 +1,15 @@
+"use client"
 import { Button } from "flowbite-react";
 import Image from "next/image";
 import { Nav } from "./(components)/Navbar";
 import Footer from "./(components)/Footer";
+import { Router } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+
+  const router = useRouter();
+
   return (
     <>
       <Nav />
@@ -19,7 +25,7 @@ export default function Home() {
             </p>
 
             <div className="flex flex-row gap-10">
-              <Button className="">Get started</Button>
+              <Button className=""  onClick={()=> router.push("/signup")}>Get started</Button>
             </div>
           </div>
           <div className="hidden lg:col-span-5 lg:mt-0 lg:flex">
