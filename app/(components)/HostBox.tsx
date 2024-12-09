@@ -22,7 +22,7 @@ export default function HostBox({
         <img
           alt="Host"
           height="150"
-          src={photo}
+          src={photo || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOH2aZnIHWjMQj2lQUOWIL2f4Hljgab0ecZQ&s"}
           width="150"
           className="mb-3 rounded-full shadow-lg"
         />

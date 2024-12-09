@@ -3,15 +3,16 @@ import React, { use, useEffect, useState } from "react";
 import ScheduleList from "./ScheduleList";
 import { request } from "@/utils/request";
 
-export default function Host({ params }: { params: Promise<{ id: string }> }) {
-  const hostDetails = {
-    id: 1,
-    name: "Host1",
-    email: "demo@gmail.com",
-    photo: "https://via.placeholder.com/150",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  };
+const initialDetails = {
+  id: 1,
+  name: "Host1",
+  email: "demo@gmail.com",
+  photo:
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOH2aZnIHWjMQj2lQUOWIL2f4Hljgab0ecZQ&s",
+  bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+};
 
+export default function Host({ params }: { params: Promise<{ id: string }> }) {
   // const schedules = [
   //   {
   //     slot_id: 1,
@@ -126,7 +127,26 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
   const [schedules, setSchedules] = useState([]);
   const [bookedSchedules, setBookedSchedules] = useState([]);
 
+  const [hostDetails, setHostDetails] = useState(initialDetails);
+
   const { id } = use(params);
+
+  const getHostDetails = () => {
+    console.log("Get Host Details")
+    const res = request.get("/users/getOne/" + id);
+    res.then((res) => {
+      const { user_id, name, email, photo } = res.data;
+      setHostDetails({
+        id: user_id,
+        name: name,
+        email: email,
+        photo:
+          photo ||
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOH2aZnIHWjMQj2lQUOWIL2f4Hljgab0ecZQ&s",
+        bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      });
+    });
+  };
 
   const getSchedules = () => {
     const res = request.get("/slots/getall?user_id=" + id);
@@ -138,6 +158,7 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
   };
 
   useEffect(() => {
+    getHostDetails();
     getSchedules();
   }, []);
 

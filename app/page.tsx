@@ -28,9 +28,9 @@ export default function Home() {
               <Button className=""  onClick={()=> router.push("/signup")}>Get started</Button>
             </div>
           </div>
-          <div className="hidden lg:col-span-5 lg:mt-0 lg:flex">
+            <div className="order-first lg:order-none lg:col-span-5 lg:mt-0 lg:flex">
             <img src="hero.png" alt="mockup" />
-          </div>
+            </div>
         </div>
       </section>
       <Footer />
