@@ -25,7 +25,8 @@ export default function ScheduleBox({
   setModalData: any;
   bookedBy: number;
 }) {
-  const user = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+  const user =
+    typeof window !== "undefined" ? localStorage.getItem("user") : null;
   const id = user ? JSON.parse(user)["user_id"] : null;
 
   const router = useRouter();
@@ -83,7 +84,7 @@ export default function ScheduleBox({
                     !is_booked &&
                     setModalData({ id: slot_id, actionType: "Delete" })
                   }
-                  className={`inline-flex items-center rounded-lg p-1 text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 ${
+                  className={`inline-flex items-center rounded-lg p-1 text-sm font-medium text-red-500 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 ${
                     is_booked && "cursor-not-allowed opacity-40"
                   }`}
                 >
