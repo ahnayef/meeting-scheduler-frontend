@@ -130,7 +130,6 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
   useEffect(() => {
     const res = request.get("/slots/getall?user_id=" + id);
     res.then((res) => {
-      console.log(res.data);
       setSchedules(res.data);
     });
   }, []);

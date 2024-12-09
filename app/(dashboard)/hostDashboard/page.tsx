@@ -10,8 +10,6 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
   const [schedules, setSchedules] = React.useState([]);
 
   const { user_id } = JSON.parse(localStorage.getItem("user") || "{}")
-  console.log(user_id);
-
   useEffect(() => {
     const res = request.get("/slots/getall?user_id=" + user_id);
     res.then((res) => {

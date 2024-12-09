@@ -13,7 +13,6 @@ export function Nav() {
   const router = useRouter();
 
   const logout = () => {
-    console.log("logging out");
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     router.push("/");

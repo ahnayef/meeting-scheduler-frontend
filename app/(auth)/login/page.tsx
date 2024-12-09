@@ -49,7 +49,6 @@ function Login() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(formState);
     login(formState);
   };
 

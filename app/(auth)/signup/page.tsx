@@ -37,7 +37,6 @@ function Signup() {
         password,
       });
       const { user, token } = res.data;
-      console.log(user, token);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success("Registration successful");

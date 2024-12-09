@@ -12,7 +12,6 @@ function HostSchedules({ schedules }: any) {
   });
 
   const handleBook = (slot_id: number) => {
-    console.log(slot_id);
     setModalData({ id: null });
   };
 
