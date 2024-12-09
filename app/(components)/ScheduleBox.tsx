@@ -3,7 +3,7 @@
 import { Button } from "flowbite-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 export default function ScheduleBox({
@@ -25,10 +25,35 @@ export default function ScheduleBox({
   setModalData: any;
   bookedBy: number;
 }) {
-  const user = localStorage.getItem("user");
+  const user = typeof window !== "undefined" ? localStorage.getItem("user") : null;
   const id = user ? JSON.parse(user)["user_id"] : null;
 
   const router = useRouter();
+
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+
+  useEffect(() => {
+    // Parse date and time into a Date object
+    const [year, month, day] = date.split("-").map(Number);
+    const [hours, minutes] = start_tm.split(":").map(Number);
+    const targetDate = new Date(year, month - 1, day, hours, minutes);
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const difference = targetDate.getTime() - now;
+      setTimeLeft(difference > 0 ? difference : 0);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [date, start_tm]);
+
+  const formatTimeLeft = (milliseconds: number) => {
+    const totalSeconds = Math.floor(milliseconds / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    return `${hours}h ${minutes}m ${seconds}s`;
+  };
 
   return (
     <>
@@ -54,12 +79,13 @@ export default function ScheduleBox({
               <div className="flex flex-col items-center justify-center gap-2">
                 <Button
                   color="red"
-                  
                   onClick={() =>
                     !is_booked &&
                     setModalData({ id: slot_id, actionType: "Delete" })
                   }
-                  className={`inline-flex items-center rounded-lg bg-cyan-700 p-1 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ${is_booked && "cursor-not-allowed opacity-40"}`}
+                  className={`inline-flex items-center rounded-lg p-1 text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 ${
+                    is_booked && "cursor-not-allowed opacity-40"
+                  }`}
                 >
                   Delete
                 </Button>
@@ -68,7 +94,9 @@ export default function ScheduleBox({
                     !is_booked &&
                     router.push(`/hostDashboard/editSchedule/${slot_id}`)
                   }
-                  className={`inline-flex items-center rounded-lg bg-cyan-700 p-1 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ${is_booked && "cursor-not-allowed opacity-40"}`}
+                  className={`inline-flex items-center rounded-lg p-1 text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 ${
+                    is_booked && "cursor-not-allowed opacity-40"
+                  }`}
                 >
                   Edit
                 </Button>
@@ -79,12 +107,17 @@ export default function ScheduleBox({
                   !is_booked &&
                   setModalData({ id: slot_id, actionType: "Book" })
                 }
-                className={`inline-flex items-center rounded-lg bg-cyan-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ${is_booked && "cursor-not-allowed opacity-40"}`}
+                className={`inline-flex items-center rounded-lg px-4 py-2 text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 ${
+                  is_booked && "cursor-not-allowed opacity-40"
+                }`}
               >
                 Book
               </Button>
             )}
           </div>
+          {/* <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+            Starts in: {formatTimeLeft(timeLeft)}
+          </div> */}
         </div>
       </div>
     </>
