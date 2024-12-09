@@ -55,7 +55,7 @@ function addSchedule() {
       return;
     }
 
-    const res = request.post("/slot/create", formState);
+    const res = request.post("/slots/create", formState);
 
     res
       .then((res) => {
