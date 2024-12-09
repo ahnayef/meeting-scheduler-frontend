@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { toast, ToastContainer } from "react-toastify";
-import { request } from "@/utils/request";
-import isTokenExpired from "@/utils/checkTokenExpirity";
+import {  ToastContainer } from "react-toastify";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

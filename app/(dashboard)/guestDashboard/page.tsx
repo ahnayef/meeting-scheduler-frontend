@@ -1,27 +1,20 @@
-import React from "react";
+"use client"
+
+import React, { useEffect } from "react";
 import HostList from "./HostList";
+import { request } from "@/utils/request";
 
 function GuestDashboard() {
-  const hosts = [
-    {
-      id: 1,
-      name: "Host1",
-      email: "demo1@gmail.com",
-      photo: "https://via.placeholder.com/150",
-    },
-    {
-      id: 2,
-      name: "Host2",
-      email: "demo2@gmail.com",
-      photo: "https://via.placeholder.com/150",
-    },
-    {
-      id: 3,
-      name: "Host3",
-      email: "demo3@gmail.com",
-      photo: "https://via.placeholder.com/150",
-    },
-  ];
+
+  const [hosts, setHosts] = React.useState([]);
+
+  useEffect(() => {
+    const res = request.get("/users/getusers?role=Host");
+    res.then((res) => {
+      setHosts(res.data);
+    });
+  }, []);
+
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-10 p-10">
