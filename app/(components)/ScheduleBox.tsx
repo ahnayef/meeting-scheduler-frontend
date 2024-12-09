@@ -25,7 +25,7 @@ export default function ScheduleBox({
       <div className="border p-10 shadow-md">
         <div className="flex flex-col items-center pb-10">
           <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-            {date}
+            {new Date(date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
           </h5>
           <span className="text-sm text-gray-500 dark:text-gray-400">
             {start_tm} - {end_tm}
