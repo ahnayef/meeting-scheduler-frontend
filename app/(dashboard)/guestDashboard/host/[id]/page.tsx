@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect } from "react";
+import React, { use, useEffect, useState } from "react";
 import ScheduleList from "./ScheduleList";
 import { request } from "@/utils/request";
 
@@ -123,8 +123,8 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
   //   },
   // ];
 
-  const [schedules, setSchedules] = React.useState([]);
-  const [bookedSchedules, setBookedSchedules] = React.useState([]);
+  const [schedules, setSchedules] = useState([]);
+  const [bookedSchedules, setBookedSchedules] = useState([]);
 
   const { id } = use(params);
 
@@ -165,7 +165,7 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
         <h2 className="text-2xl font-semibold">Schedules</h2>
         <ScheduleList getSchedules={getSchedules} schedules={schedules} />
         <h2 className="text-2xl font-semibold">Booked Schedules</h2>
-        {bookedSchedules.length === 0 ? (
+        {bookedSchedules.length !== 0 ? (
           <ScheduleList
             getSchedules={getSchedules}
             schedules={bookedSchedules}

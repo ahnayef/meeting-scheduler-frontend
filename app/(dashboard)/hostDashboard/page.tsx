@@ -18,6 +18,7 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
       const { slots, bookedSlots } = res.data;
       setSchedules(slots);
       setBookedSchedules(bookedSlots);
+      console.log(bookedSchedules.length ===0)
     });
   };
 
@@ -38,7 +39,7 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
         </Link>
         <HostSchedules getSchedule={getSchedule} schedules={schedules} />
         <h2 className="text-2xl font-semibold">Booked Schedules</h2>
-        {bookedSchedules.length === 0 ? (
+        {bookedSchedules.length !== 0 ? (
           <HostSchedules
             getSchedule={getSchedule}
             schedules={bookedSchedules}
