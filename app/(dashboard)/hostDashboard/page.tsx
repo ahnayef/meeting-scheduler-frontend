@@ -36,9 +36,16 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
           <FaPlus className="text-2xl" />
           <p>Add Schedule</p>
         </Link>
-        <HostSchedules getSchedule = {getSchedule} schedules={schedules} />
+        <HostSchedules getSchedule={getSchedule} schedules={schedules} />
         <h2 className="text-2xl font-semibold">Booked Schedules</h2>
-        <HostSchedules getSchedule= {getSchedule} schedules={bookedSchedules} />
+        {bookedSchedules.length === 0 ? (
+          <HostSchedules
+            getSchedule={getSchedule}
+            schedules={bookedSchedules}
+          />
+        ) : (
+          <p>No booked schedules</p>
+        )}
       </div>
     </>
   );

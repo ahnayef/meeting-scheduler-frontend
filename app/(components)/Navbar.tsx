@@ -16,6 +16,7 @@ export function Nav() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     router.push("/");
+    window.location.reload();
   };
 
   useEffect(() => {

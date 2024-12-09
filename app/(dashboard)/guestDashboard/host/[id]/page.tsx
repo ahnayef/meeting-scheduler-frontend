@@ -165,7 +165,14 @@ export default function Host({ params }: { params: Promise<{ id: string }> }) {
         <h2 className="text-2xl font-semibold">Schedules</h2>
         <ScheduleList getSchedules={getSchedules} schedules={schedules} />
         <h2 className="text-2xl font-semibold">Booked Schedules</h2>
-        <ScheduleList getSchedules={getSchedules} schedules={bookedSchedules} />
+        {bookedSchedules.length === 0 ? (
+          <ScheduleList
+            getSchedules={getSchedules}
+            schedules={bookedSchedules}
+          />
+        ) : (
+          <p>No booked schedules</p>
+        )}
       </div>
     </>
   );

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { isLoggedIn } from "@/utils/isLoggedIn";
+import Footer from "../(components)/Footer";
 
 export default function DashboardLayout({
   children,
@@ -17,5 +18,10 @@ export default function DashboardLayout({
     }
   }, []);
 
-  return <main className={`antialiased`}>{children}</main>;
+  return (
+    <main className={`antialiased`}>
+      {children}
+      <Footer />
+    </main>
+  );
 }
